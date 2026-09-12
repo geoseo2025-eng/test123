@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КАМЕНЬ — изделия из натурального камня на заказ</title>
+<meta name="description" content="Столешницы, подоконники, лестницы и облицовка из гранита, мрамора и кварцита. Замер, проект, изготовление, монтаж под ключ.">
+<style>
+  :root{
+    --bg:#0f1114;
+    --bg-soft:#171a1f;
+    --surface:#1f232a;
+    --surface-2:#262b33;
+    --border:#333944;
+    --text:#f2efe9;
+    --text-dim:#a9aeb8;
+    --accent:#c9a876;
+    --accent-2:#e4c896;
+    --marble-a:#2b2f36;
+    --marble-b:#3a4048;
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  h1,h2,h3{font-family:Georgia,'Times New Roman',serif;margin:0 0 .5em;font-weight:600;}
+  h2{font-size:clamp(26px,4vw,38px);}
+  .eyebrow{
+    display:inline-block;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  .lead{color:var(--text-dim);font-size:17px;max-width:640px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 28px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#1a1305;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(201,168,118,.28);}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(15,17,20,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;}
+  .logo{font-family:Georgia,serif;font-size:22px;letter-spacing:.04em;display:flex;align-items:center;gap:10px;}
+  .logo-mark{
+    width:34px;height:34px;border-radius:8px;
+    background:conic-gradient(from 210deg,var(--marble-a),var(--marble-b),var(--accent),var(--marble-a));
+    flex:none;
+  }
+  .nav-links{display:flex;gap:28px;align-items:center;}
+  .nav-links a{color:var(--text-dim);font-size:14px;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{display:flex;align-items:center;gap:18px;}
+  .phone{font-weight:600;font-size:15px;white-space:nowrap;}
+  .burger{display:none;background:none;border:none;color:var(--text);font-size:26px;cursor:pointer;}
+
+  @media (max-width:860px){
+    .nav-links{
+      position:fixed;inset:64px 0 auto 0;
+      background:var(--bg-soft);
+      flex-direction:column;
+      padding:20px 24px 28px;
+      border-bottom:1px solid var(--border);
+      gap:16px;
+      transform:translateY(-120%);
+      transition:transform .25s ease;
+    }
+    .nav-links.open{transform:translateY(0);}
+    .burger{display:block;}
+    .phone{display:none;}
+  }
+
+  /* Hero */
+  .hero{
+    position:relative;
+    padding:90px 0 100px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(201,168,118,.10), transparent 55%),
+      repeating-linear-gradient(120deg, rgba(255,255,255,.02) 0 2px, transparent 2px 40px),
+      linear-gradient(160deg,#141619,#1c2026 55%,#101215);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;}
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(34px,5.2vw,54px);line-height:1.08;margin-bottom:20px;}
+  .hero h1 em{font-style:normal;color:var(--accent);}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
+  .hero-stats{display:flex;gap:36px;margin-top:44px;flex-wrap:wrap;}
+  .stat b{display:block;font-size:28px;font-family:Georgia,serif;color:var(--accent-2);}
+  .stat span{font-size:13px;color:var(--text-dim);}
+
+  .slab{
+    aspect-ratio:4/5;
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+  }
+  .slab::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,.10), transparent 40%),
+      repeating-radial-gradient(circle at 70% 60%, rgba(255,255,255,.05) 0 2px, transparent 2px 6px),
+      linear-gradient(125deg,#2c3038 0%,#3d434c 30%,#23262c 55%,#4a515c 78%,#2a2e35 100%);
+  }
+  .slab::after{
+    content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(35deg, transparent 40%, rgba(201,168,118,.18) 47%, transparent 54%),
+      linear-gradient(160deg, transparent 60%, rgba(255,255,255,.08) 66%, transparent 72%);
+  }
+
+  section{padding:96px 0;}
+  .section-head{max-width:640px;margin:0 auto 52px;text-align:center;}
+  .section-head.left{margin:0 0 52px;text-align:left;}
+
+  /* Advantages */
+  .adv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  @media (max-width:900px){.adv-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.adv-grid{grid-template-columns:1fr;}}
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:28px 24px;
+  }
+  .icon-badge{
+    width:46px;height:46px;border-radius:12px;
+    background:rgba(201,168,118,.12);
+    color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;margin-bottom:16px;
+  }
+  .card h3{font-size:18px;font-family:inherit;margin-bottom:8px;}
+  .card p{color:var(--text-dim);font-size:14.5px;margin:0;}
+
+  /* Services */
+  .services{background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.svc-grid{grid-template-columns:1fr;}}
+  .svc-card{
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    overflow:hidden;
+    background:var(--surface);
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .svc-card:hover{transform:translateY(-4px);border-color:var(--accent);}
+  .svc-thumb{height:150px;position:relative;}
+  .svc-body{padding:20px;}
+  .svc-body h3{font-size:17px;margin-bottom:6px;font-family:inherit;}
+  .svc-body p{color:var(--text-dim);font-size:14px;margin:0;}
+
+  /* Materials */
+  .mat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media (max-width:760px){.mat-grid{grid-template-columns:repeat(2,1fr);}}
+  .mat-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);}
+  .mat-swatch{height:110px;}
+  .mat-card p{margin:0;padding:14px 16px;font-weight:600;font-size:14.5px;background:var(--surface);}
+
+  /* Process */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:step;}
+  @media (max-width:900px){.steps{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.steps{grid-template-columns:1fr;}}
+  .step{position:relative;padding-top:8px;}
+  .step::before{
+    counter-increment:step;
+    content:counter(step);
+    font-family:Georgia,serif;
+    font-size:34px;
+    color:var(--accent);
+    display:block;
+    margin-bottom:10px;
+  }
+  .step h3{font-size:16px;margin-bottom:6px;font-family:inherit;}
+  .step p{color:var(--text-dim);font-size:14px;margin:0;}
+
+  /* Testimonials */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:900px){.quotes{grid-template-columns:1fr;}}
+  .quote{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;}
+  .quote p{color:var(--text);font-size:15px;}
+  .quote-author{display:flex;align-items:center;gap:12px;margin-top:16px;}
+  .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--marble-b),var(--accent));flex:none;}
+  .quote-author b{display:block;font-size:14px;}
+  .quote-author span{font-size:12.5px;color:var(--text-dim);}
+
+  /* CTA banner */
+  .cta-banner{
+    border-radius:20px;
+    padding:56px 40px;
+    text-align:center;
+    background:linear-gradient(135deg,#232730,#171a1f);
+    border:1px solid var(--border);
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-banner::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 80% 0%, rgba(201,168,118,.18), transparent 55%);
+  }
+  .cta-banner > *{position:relative;}
+  .cta-banner .btn{margin-top:22px;}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  @media (max-width:860px){.contact-grid{grid-template-columns:1fr;}}
+  .info-row{display:flex;gap:14px;margin-bottom:22px;}
+  .info-row .icon-badge{margin-bottom:0;flex:none;}
+  .info-row h4{margin:0 0 4px;font-size:15px;font-family:inherit;}
+  .info-row span{color:var(--text-dim);font-size:14px;}
+
+  form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:30px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;}
+  .field input,.field textarea{
+    width:100%;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 14px;
+    color:var(--text);
+    font-size:14.5px;
+    font-family:inherit;
+  }
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--accent);}
+  .field textarea{resize:vertical;min-height:90px;}
+  .consent{font-size:12.5px;color:var(--text-dim);margin-top:10px;}
+  #formMsg{margin-top:14px;font-size:14px;color:var(--accent-2);display:none;}
+
+  footer{border-top:1px solid var(--border);padding:36px 0;}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .foot-row .logo{font-size:18px;}
+  footer .muted{color:var(--text-dim);font-size:13px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap">
+    <a href="#top" class="logo"><span class="logo-mark"></span>КАМЕНЬ</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#services">Услуги</a>
+      <a href="#materials">Материалы</a>
+      <a href="#process">Как мы работаем</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contact">Контакты</a>
+    </div>
+    <div class="nav-cta">
+      <a class="phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a class="btn btn-primary" href="#contact" style="padding:10px 20px;font-size:14px;">Оставить заявку</a>
+      <button class="burger" id="burger" aria-label="Меню">☰</button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Натуральный камень на заказ</span>
+        <h1>Столешницы, лестницы и облицовка<br><em>из настоящего камня</em></h1>
+        <p class="lead">Работаем с гранитом, мрамором, кварцитом и ониксом: от бесплатного замера до монтажа под ключ. Собственное производство и гарантия на все изделия — 10 лет.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Бесплатный замер</a>
+          <a href="#services" class="btn btn-ghost">Смотреть услуги</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>15 лет</b><span>на рынке</span></div>
+          <div class="stat"><b>2400+</b><span>готовых проектов</span></div>
+          <div class="stat"><b>10 лет</b><span>гарантии</span></div>
+        </div>
+      </div>
+      <div class="slab" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES -->
+  <section class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Почему мы</span>
+      <h2>Камень, которому можно доверять</h2>
+    </div>
+    <div class="adv-grid">
+      <div class="card">
+        <div class="icon-badge">✓</div>
+        <h3>Своё производство</h3>
+        <p>Обрабатываем камень на собственном оборудовании — без посредников и переплат.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge">⏱</div>
+        <h3>Замер за 1 день</h3>
+        <p>Приезжаем с образцами, делаем точный замер и расчёт стоимости бесплатно.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge">🛡</div>
+        <h3>Гарантия 10 лет</h3>
+        <p>Используем сертифицированный камень и даём письменную гарантию на изделие и монтаж.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge">🚚</div>
+        <h3>Доставка и монтаж</h3>
+        <p>Привозим и устанавливаем изделие сами — аккуратно, в оговоренный срок.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="section-head left">
+        <span class="eyebrow">Услуги</span>
+        <h2>Что мы изготавливаем</h2>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card">
+          <div class="svc-thumb" style="background:linear-gradient(135deg,#3a3f47,#20232a);"></div>
+          <div class="svc-body">
+            <h3>Столешницы для кухни</h3>
+            <p>Цельные и составные столешницы под любую планировку, врезка мойки и варочной панели.</p>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-thumb" style="background:linear-gradient(135deg,#4a4136,#221f1a);"></div>
+          <div class="svc-body">
+            <h3>Подоконники</h3>
+            <p>Устойчивы к влаге и УФ, точно повторяют форму проёма, широкая палитра оттенков.</p>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-thumb" style="background:linear-gradient(135deg,#333a3f,#171b1f);"></div>
+          <div class="svc-body">
+            <h3>Лестницы и ступени</h3>
+            <p>Ступени, подступенки, плинтус — с противоскользящей обработкой поверхности.</p>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-thumb" style="background:linear-gradient(135deg,#463b2f,#1c180f);"></div>
+          <div class="svc-body">
+            <h3>Облицовка фасадов</h3>
+            <p>Вентилируемые и мокрые фасады, цоколь, отделка колонн и арок.</p>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-thumb" style="background:linear-gradient(135deg,#3d434c,#20242a);"></div>
+          <div class="svc-body">
+            <h3>Камины и полы</h3>
+            <p>Порталы для каминов, напольная плитка и мозаика из натурального камня.</p>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-thumb" style="background:linear-gradient(135deg,#454b52,#24282e);"></div>
+          <div class="svc-body">
+            <h3>Индивидуальные проекты</h3>
+            <p>Барные стойки, раковины, столешницы для ванной — по вашим эскизам и размерам.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATERIALS -->
+  <section class="wrap" id="materials">
+    <div class="section-head left">
+      <span class="eyebrow">Материалы</span>
+      <h2>Работаем с любым натуральным камнем</h2>
+    </div>
+    <div class="mat-grid">
+      <div class="mat-card">
+        <div class="mat-swatch" style="background:linear-gradient(135deg,#4b4f57,#26292e);"></div>
+        <p>Гранит</p>
+      </div>
+      <div class="mat-card">
+        <div class="mat-swatch" style="background:linear-gradient(135deg,#e8e2d6,#b9b0a0);"></div>
+        <p>Мрамор</p>
+      </div>
+      <div class="mat-card">
+        <div class="mat-swatch" style="background:linear-gradient(135deg,#cbd6d6,#8fa3a3);"></div>
+        <p>Кварцит</p>
+      </div>
+      <div class="mat-card">
+        <div class="mat-swatch" style="background:linear-gradient(135deg,#e7c98f,#a97f45);"></div>
+        <p>Оникс</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="wrap" id="process">
+    <div class="section-head">
+      <span class="eyebrow">Как мы работаем</span>
+      <h2>От замера до монтажа — 4 шага</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Заявка и замер</h3>
+        <p>Вы оставляете заявку — мы бесплатно приезжаем на объект с образцами камня.</p>
+      </div>
+      <div class="step">
+        <h3>Проект и расчёт</h3>
+        <p>Готовим 3D-эскиз и точную смету, согласовываем материал и сроки.</p>
+      </div>
+      <div class="step">
+        <h3>Изготовление</h3>
+        <p>Раскраиваем и обрабатываем камень на собственном производстве.</p>
+      </div>
+      <div class="step">
+        <h3>Монтаж</h3>
+        <p>Доставляем и устанавливаем изделие, даём гарантию на результат.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="wrap" id="reviews">
+    <div class="section-head">
+      <span class="eyebrow">Отзывы</span>
+      <h2>Что говорят клиенты</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <p>«Заказывали столешницу на кухню из кварцита — сделали быстро, замер и монтаж уложились в неделю. Швов почти не видно».</p>
+        <div class="quote-author">
+          <div class="avatar"></div>
+          <div><b>Ирина, Москва</b><span>Кухонная столешница</span></div>
+        </div>
+      </div>
+      <div class="quote">
+        <p>«Облицевали цоколь дома гранитом — работали аккуратно, не задерживали сроки, дали гарантию на 10 лет».</p>
+        <div class="quote-author">
+          <div class="avatar"></div>
+          <div><b>Сергей, Подмосковье</b><span>Облицовка фасада</span></div>
+        </div>
+      </div>
+      <div class="quote">
+        <p>«Мраморные подоконники выглядят дороже, чем мы ожидали за эту цену. Отдельное спасибо за консультацию по выбору камня».</p>
+        <div class="quote-author">
+          <div class="avatar"></div>
+          <div><b>Алина, Казань</b><span>Подоконники</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap">
+    <div class="cta-banner">
+      <span class="eyebrow">Готовы начать?</span>
+      <h2>Рассчитаем стоимость вашего проекта за 15 минут</h2>
+      <p class="lead" style="margin:0 auto;">Оставьте номер телефона — перезвоним, уточним детали и запишем на бесплатный замер.</p>
+      <a href="#contact" class="btn btn-primary">Получить расчёт</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="wrap" id="contact">
+    <div class="section-head left">
+      <span class="eyebrow">Контакты</span>
+      <h2>Оставьте заявку на замер</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="info-row">
+          <div class="icon-badge">📍</div>
+          <div><h4>Адрес шоурума</h4><span>г. Москва, ул. Каменная, д. 1</span></div>
+        </div>
+        <div class="info-row">
+          <div class="icon-badge">📞</div>
+          <div><h4>Телефон</h4><span>+7 (000) 000-00-00</span></div>
+        </div>
+        <div class="info-row">
+          <div class="icon-badge">✉️</div>
+          <div><h4>Почта</h4><span>info@kamen-studio.ru</span></div>
+        </div>
+        <div class="info-row">
+          <div class="icon-badge">🕒</div>
+          <div><h4>Режим работы</h4><span>Пн–Сб: 9:00–19:00</span></div>
+        </div>
+      </div>
+
+      <form id="leadForm">
+        <div class="field">
+          <label for="name">Имя</label>
+          <input id="name" name="name" type="text" placeholder="Как к вам обращаться" required>
+        </div>
+        <div class="field">
+          <label for="tel">Телефон</label>
+          <input id="tel" name="tel" type="tel" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="field">
+          <label for="message">Комментарий</label>
+          <textarea id="message" name="message" placeholder="Расскажите о вашем проекте (необязательно)"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Отправить заявку</button>
+        <p class="consent">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.</p>
+        <p id="formMsg">Спасибо! Мы свяжемся с вами в течение рабочего дня.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <a href="#top" class="logo"><span class="logo-mark"></span>КАМЕНЬ</a>
+    <span class="muted">© 2026 Студия натурального камня. Все права защищены.</span>
+  </div>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  const form = document.getElementById('leadForm');
+  const formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formMsg.style.display = 'block';
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
